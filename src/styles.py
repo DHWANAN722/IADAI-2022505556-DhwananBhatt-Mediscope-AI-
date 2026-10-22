@@ -91,6 +91,15 @@ div[data-testid="stPlotlyChart"] {{
 .block-container label[data-testid="stRadioOption"] p {{ font-weight: 600; color: {P['slate']}; margin: 0; }}
 .block-container label[data-testid="stRadioOption"][data-selected="true"] p {{ color: #fff !important; }}
 
+/* ---------- click-filter chips ---------- */
+.st-key-xf_chips {{ background: #fff; border: 1px solid #E6ECF5; border-radius: 14px; padding: 8px 12px;
+  box-shadow: 0 4px 14px rgba(15,23,42,.06); margin-bottom: 10px; }}
+.st-key-xf_chips button[kind="secondary"] {{ border-radius: 999px; background: rgba(14,165,164,.10);
+  border: 1px solid {P['teal']}; color: {P['navy']}; font-weight: 600; }}
+.st-key-xf_chips button[kind="primary"] {{ border-radius: 999px; background: {P['coral']}; border-color: {P['coral']}; }}
+.ms-chip-label {{ font-weight: 700; color: {P['navy']}; padding-top: 8px; }}
+div[data-testid="stPopover"] button {{ border-radius: 999px; font-size: .85rem; }}
+
 /* ---------- sidebar ---------- */
 section[data-testid="stSidebar"] {{
   background: linear-gradient(180deg, {P['navy']} 0%, #142B52 100%);

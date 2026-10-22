@@ -52,3 +52,27 @@ print("AppTest with severity=Extreme filter: OK")
 at.sidebar.toggle[1].set_value(False).run()   # 3D off -> 2D fallback
 assert not at.exception, at.exception
 print("AppTest with 2D fallback: OK")
+
+# ---- interactivity: option controls, simulated click selection, both modes ----
+from src import interact as ix
+pts = [{"customdata": ["Medicare", 1]}, {"customdata": "Medicaid"}, {"x": 1}]
+assert ix.points_to_values(pts) == ["Medicaid", "Medicare"]
+assert len(ix.apply_cross_filters(df, {"payment_type": ["Medicare"]})) == (df["payment_type"] == "Medicare").sum()
+for mode in (True, False):
+    at = AppTest.from_file(str(Path(__file__).resolve().parent.parent / "app.py"), default_timeout=120)
+    at.session_state["xf"] = {"payment_type": ["Medicare"], "severity": ["Major", "Extreme"]}  # simulated clicks
+    at.run()
+    at.sidebar.toggle[1].set_value(mode).run()
+    for pg in at.radio(key="page").options:
+        at.radio(key="page").set_value(pg).run()
+        assert not at.exception, (mode, pg, at.exception)
+    at.radio(key="page").set_value(at.radio(key="page").options[0]).run()
+    for k, v in (("ov_metric", "median_charges"), ("hist_by", "age_group"), ("hm_metric", "total_charges"),
+                 ("box_val", "charge_per_day"), ("pie_by", "race"), ("an_metric", "avg_los")):
+        at.selectbox(key=k).set_value(v).run()
+        assert not at.exception, (mode, k, at.exception)
+    at.button(key="chip_payment_type").click().run()
+    assert not at.exception and "payment_type" not in at.session_state["xf"]
+    at.button(key="xf_clear").click().run()
+    assert not at.exception and at.session_state["xf"] == {}
+    print(f"Interactivity OK (3D={mode}): pages, options, selection chips, clear")

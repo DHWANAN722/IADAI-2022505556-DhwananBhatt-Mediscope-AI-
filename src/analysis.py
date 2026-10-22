@@ -166,3 +166,16 @@ def rq5_payment_billing(df):
            f"({ccr_lo['payment_type']}) to {ccr_hi['cost_to_charge']:.2f} ({ccr_hi['payment_type']}), so billed "
            f"charges are typically {1/g['cost_to_charge'].mean():.1f}x the actual cost of care.")
     return g, txt
+
+
+def ranked(df: pd.DataFrame, group: str = "diagnosis", metric: str = "avg_los", top_n: int = 15) -> pd.DataFrame:
+    """Top-N groups by a metric. Adds ``key`` (the filter value for cross-filtering)
+    and ``label`` (display text)."""
+    by = ["diagnosis_code", "diagnosis"] if group == "diagnosis" else [group]
+    g = group_summary(df, by).nlargest(top_n, metric).reset_index(drop=True)
+    g["key"] = g[group].astype(str)
+    if group == "diagnosis":
+        g["label"] = g["diagnosis"] + "  [" + g["diagnosis_code"].astype(str) + "]"
+    else:
+        g["label"] = g[group].astype(str)
+    return g

@@ -117,3 +117,43 @@ STUDENT = {
     "course": "Mathematics for AI-II",
     "repo": "IADAI2022505556-DhwananBhatt",
 }
+
+# --------------------------------------------------------------------------- #
+# Interactive chart options (shared by 2D and 3D chart modules and the app)
+# --------------------------------------------------------------------------- #
+RANK_METRICS = {"avg_los": "Average stay (days)", "median_los": "Median stay (days)",
+                "avg_charges": "Average charges ($)", "median_charges": "Median charges ($)"}
+VALUE_COLS = {"total_charges": "Total charges ($)", "total_costs": "Total costs ($)",
+              "charge_per_day": "Charges per day ($)"}
+BREAKDOWNS = {"severity": "Severity", "age_group": "Age group", "gender": "Gender"}
+GROUP_LEVELS = {"diagnosis": "Diagnosis (CCS)", "body_system": "Body system"}
+SHARE_BY = {"payment_type": "Payment type", "admission_type": "Admission type", "race": "Race"}
+HEAT_COLUMNS = {"severity": "Severity", "age_group": "Age group", "gender": "Gender"}
+HEAT_METRICS = {"length_of_stay": "Average stay (days)", "total_charges": "Average charges ($)",
+                "charge_per_day": "Average charges per day ($)"}
+AGE_METRICS = {"avg_charges": "Average charges ($)", "median_charges": "Median charges ($)",
+               "avg_costs": "Average cost ($)", "avg_los": "Average stay (days)"}
+GENDER_COLORS = {"Female": "#F2707A", "Male": "#4338CA", "Unknown": "#94A3B8"}
+
+
+def is_money(metric: str) -> bool:
+    return any(t in metric for t in ("charge", "cost"))
+
+
+def breakdown_colors(col: str) -> dict:
+    """Consistent colour per category level for any breakdown column."""
+    if col == "severity":
+        return SEVERITY_COLORS
+    if col == "gender":
+        return GENDER_COLORS
+    if col == "age_group":
+        return {a: COLORWAY[i] for i, a in enumerate(AGE_ORDER)}
+    return {}
+
+
+def level_order(col: str, present) -> list:
+    present = [str(p) for p in present]
+    base = {"severity": SEVERITY_ORDER, "age_group": AGE_ORDER, "gender": ["Female", "Male", "Unknown"]}.get(col)
+    if base:
+        return [b for b in base if b in present]
+    return sorted(present)

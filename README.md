@@ -92,6 +92,20 @@ The raw sample stays untouched in `data/raw/`. Cleaning runs when the app loads 
   Mesh3d cuboids, the payment chart is an extruded 3D donut, charges-by-severity is a 3D point cloud
   (severity × stay × charges, ≤5,000 sampled points) with median and Q1–Q3 markers, and the LOS histogram is
   split by severity along the depth axis.
+* **Interactivity** (works in both 3D and 2D modes):
+  * **⚙️ Per-chart options** (popover above each chart): choose the metric (average vs median stay, average vs
+    median charges, total charges vs total costs vs charges per day), Top-N sliders, and the breakdown/colour
+    dimension (severity, age group, gender; payment type / admission type / race for the donut; severity /
+    age / gender columns for the facility grid).
+  * **Click-to-filter (2D mode)**: click a bar, or box/lasso-select several, in the diagnosis, age-group,
+    severity, county, payment-type, facility and body-system charts. The selection filters the *whole*
+    dashboard and appears as removable **chips** with a **Clear selection** button. Plotly 3D traces do not
+    send selection events to Streamlit, so 3D mode uses the option controls instead.
+  * **3D camera presets**: Isometric / Front / Top / Side / ⟲ Reset buttons on every 3D chart, plus drag-rotate
+    (turntable), scroll zoom and detailed hover tooltips.
+  * **Animated chart**: ▶ Play shows charges (or cost / stay) by age group and gender changing frame by frame
+    from Minor to Extreme severity.
+  * **Legend toggling**: click legend items to show or hide series (double-click to isolate).
 * **KPI cards**: discharges, average LOS, median charges, total billed, cost-to-charge ratio, % long stays.
 * **📊 Overview**: the five required visuals (3D / 2D):
   1. Bar chart: average length of stay per diagnosis (CCS code)
@@ -123,7 +137,8 @@ with shadows, a dark navy sidebar, one custom Plotly template shared by every ch
 | Configuration | file path, column aliases, palette, cleaning thresholds (`src/config.py`) |
 | Data acquisition | Socrata Open Data API, NY State Health Data (`src/fetch_data.py`) |
 | Caching | `st.cache_data` for load + clean and for filtering |
-| Testing | `tests/smoke_test.py`: pipeline, every chart, and a headless `streamlit.testing` AppTest run |
+| Interactivity | Streamlit `on_select` selection events + session-state cross-filters (`src/interact.py`), `st.popover` controls, Plotly `updatemenus` camera presets and animation frames |
+| Testing | `tests/smoke_test.py`: pipeline, every chart in both modes, a headless `streamlit.testing` AppTest run of every page, option changes, simulated click filters and chips |
 
 ## 7. Repository structure
 
@@ -139,6 +154,7 @@ IADAI2022505556-DhwananBhatt/
 │   ├── analysis.py            # groupby/agg, pivot tables, research-question insights
 │   ├── charts.py              # 2D Plotly figures + shared template
 │   ├── charts3d.py            # interactive 3D versions of every chart
+│   ├── interact.py            # click-to-filter (cross-filter) helpers
 │   ├── styles.py              # custom CSS / HTML components
 │   └── fetch_data.py          # re-download the SPARCS sample
 ├── data/raw/sparcs_2016_inpatient_sample.csv.gz
