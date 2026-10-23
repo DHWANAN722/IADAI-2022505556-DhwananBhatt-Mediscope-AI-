@@ -8,7 +8,7 @@
 | **Course** | Mathematics for AI-II |
 | **Scenario** | 2: Hospital Inpatient Discharges Dashboard |
 | **Repository** | https://github.com/DHWANAN722/IADAI2022505556-DhwananBhatt |
-| **Live app** | **🔗 `<ADD STREAMLIT CLOUD LINK HERE>`** |
+| **Live app** | **🔗 `https://iadai2022505556-dhwananbhatt-xm8mjgfg2pbq439njgyjjx.streamlit.app/`** |
 
 ---
 
