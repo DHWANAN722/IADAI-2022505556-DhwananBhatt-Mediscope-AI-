@@ -1,10 +1,19 @@
 [theme]
 base = "light"
-primaryColor = "#0EA5A4"
-backgroundColor = "#F4F7FB"
-secondaryBackgroundColor = "#E8EEF7"
-textColor = "#0F172A"
+primaryColor = "#FFE55A"
+backgroundColor = "#4836CB"
+secondaryBackgroundColor = "#3A2BB0"
+textColor = "#FFFFFF"
+linkColor = "#FFE55A"
 font = "sans serif"
+dataframeHeaderBackgroundColor = "#22205A"
+dataframeBorderColor = "#6A5BD8"
+
+[theme.sidebar]
+backgroundColor = "#22205A"
+secondaryBackgroundColor = "#253650"
+textColor = "#FFFFFF"
+primaryColor = "#FFE55A"
 
 [server]
 headless = true

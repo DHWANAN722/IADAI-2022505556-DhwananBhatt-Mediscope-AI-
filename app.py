@@ -205,12 +205,33 @@ def style_pivot(piv, fmt):
         out = []
         for v in vals[col.name]:
             if pd.isna(v):
-                out.append("background-color: #F1F5F9; color: #94A3B8")
+                out.append("background-color: #F3F0FB; color: #8A86B0")
             else:
-                out.append(f"background-color: {mcolors.to_hex(ui.SOFT_CMAP((v - lo) / span))}; color: #0F172A")
+                out.append(f"background-color: {mcolors.to_hex(ui.SOFT_CMAP((v - lo) / span))}; color: #211D4D")
         return out
 
     return text.style.apply(colour, axis=0)
+
+
+def _chart_colours(fig):
+    """Pin chart text/background colours explicitly so the dark theme of the indigo page
+    does not leak into the white chart cards."""
+    ink, grid, line = cfg.PALETTE["ink"], "#ECE6FB", "#C9C1EA"
+    fig.update_layout(font=dict(family=charts2d.FONT, color=ink), paper_bgcolor="rgba(0,0,0,0)",
+                      plot_bgcolor="rgba(0,0,0,0)", legend_font_color=ink, title_font_color=cfg.PALETTE["navy"])
+    ax = dict(gridcolor=grid, zerolinecolor=line, linecolor=line, color=ink, tickfont_color=ink, title_font_color=ink)
+    fig.update_xaxes(**ax)
+    fig.update_yaxes(**ax)
+    fig.update_coloraxes(colorbar_tickfont_color=ink, colorbar_title_font_color=ink)
+    for tr in fig.data:
+        if "colorbar" in tr:
+            tr.colorbar.tickfont.color = ink
+            tr.colorbar.title.font.color = ink
+        elif "marker" in tr and "colorbar" in tr.marker and tr.marker.showscale:
+            tr.marker.colorbar.tickfont.color = ink
+            tr.marker.colorbar.title.font.color = ink
+    if fig.layout.sliders:
+        fig.layout.sliders[0].font.color = ink
 
 
 def plot(fig, key=None, select=None):
@@ -221,6 +242,7 @@ def plot(fig, key=None, select=None):
     emit selection events in Streamlit).
     """
     key = key or f"chart_{next(_chart_ids)}"
+    _chart_colours(fig)
     if select and not use_3d:
         st.session_state["_xf_keys"].setdefault(select, set()).add(key)
         st.plotly_chart(fig, width="stretch", config=PLOT_CFG_2D, key=key,

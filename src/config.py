@@ -90,25 +90,38 @@ LOS_BUCKET_LABELS = ["1-2 days", "3-5 days", "6-10 days", "11-30 days", "31+ day
 # --------------------------------------------------------------------------- #
 # Visual identity
 # --------------------------------------------------------------------------- #
+# Palette sampled from the "flat poster" reference infographic: orange header,
+# yellow band, vivid indigo canvas, deep navy sidebar, pastel cards, teal marks.
 PALETTE = {
-    "navy": "#0B1F3A",
-    "indigo": "#4338CA",
-    "teal": "#0EA5A4",
-    "coral": "#F2707A",
-    "amber": "#F4A261",
-    "sky": "#38BDF8",
-    "violet": "#8B5CF6",
-    "slate": "#475569",
-    "bg": "#F4F7FB",
+    "navy": "#22205A",     # deep navy-indigo (sidebar, dark text)
+    "ink": "#211D4D",      # headline text on light / orange surfaces
+    "indigo": "#4836CB",   # vivid indigo canvas
+    "teal": "#008C87",
+    "coral": "#EA493C",    # red-orange bars
+    "orange": "#FF764D",   # header orange
+    "salmon": "#F39374",
+    "amber": "#FFE55A",    # bright yellow band / buttons
+    "sky": "#9185DA",      # soft purple
+    "violet": "#6441B0",
+    "pink": "#F14379",
+    "green": "#6CB760",
+    "slate": "#4A4775",    # muted label text
+    "bg": "#4836CB",
     "card": "#FFFFFF",
+    "footer": "#FFC9E0",
+}
+# Pastel card fills (KPI cards), from the infographic's cards
+PASTELS = {
+    "yellow": "#FFE55A", "mint": "#B9F5C6", "pink": "#FFBAD5", "lightgreen": "#E3F8CF",
+    "cream": "#FFE8A5", "lavender": "#E7DDFB", "peach": "#FFD8C8", "cyan": "#C5F3F2",
 }
 # Ordered discrete colour sequence for charts
-COLORWAY = ["#0EA5A4", "#4338CA", "#F2707A", "#F4A261", "#38BDF8",
-            "#8B5CF6", "#0B1F3A", "#22C55E", "#EC4899", "#94A3B8"]
-SEVERITY_COLORS = {"Minor": "#0EA5A4", "Moderate": "#38BDF8",
-                   "Major": "#F4A261", "Extreme": "#F2707A"}
-# Sequential scale for heatmaps: soft mint -> teal -> indigo -> navy
-SEQ_SCALE = ["#ECFDF5", "#99F6E4", "#2DD4BF", "#0EA5A4", "#4338CA", "#0B1F3A"]
+COLORWAY = ["#008C87", "#4836CB", "#EA493C", "#FF764D", "#9185DA",
+            "#F14379", "#22205A", "#6CB760", "#F39374", "#145633"]
+SEVERITY_COLORS = {"Minor": "#6CB760", "Moderate": "#008C87",
+                   "Major": "#FF764D", "Extreme": "#C13F2E"}
+# Sequential scale for heatmaps: the infographic's pale-lime -> forest-green ramp
+SEQ_SCALE = ["#E3F8CF", "#D2E9AD", "#A8D27D", "#6CB760", "#328347", "#145633"]
 
 STUDENT = {
     "name": "Dhwanan Bhatt",
@@ -133,7 +146,7 @@ HEAT_METRICS = {"length_of_stay": "Average stay (days)", "total_charges": "Avera
                 "charge_per_day": "Average charges per day ($)"}
 AGE_METRICS = {"avg_charges": "Average charges ($)", "median_charges": "Median charges ($)",
                "avg_costs": "Average cost ($)", "avg_los": "Average stay (days)"}
-GENDER_COLORS = {"Female": "#F2707A", "Male": "#4338CA", "Unknown": "#94A3B8"}
+GENDER_COLORS = {"Female": "#F14379", "Male": "#4836CB", "Unknown": "#9185DA"}
 
 
 def is_money(metric: str) -> bool:

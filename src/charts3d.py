@@ -84,9 +84,9 @@ def _bars3d(x, y, z, *, color=None, intensity=None, colorscale=None, hover=None,
 
 def _axis(title, tickvals=None, ticktext=None, **kw):
     ax = dict(title=dict(text=title, font=dict(size=12, color=P["navy"])),
-              backgroundcolor="rgba(232,238,247,0.55)", gridcolor="#CBD5E1",
-              showbackground=True, zerolinecolor="#94A3B8",
-              tickfont=dict(size=10, color="#334155"))
+              backgroundcolor="rgba(231,221,251,0.55)", gridcolor="#C9C1EA",
+              showbackground=True, zerolinecolor="#9185DA",
+              tickfont=dict(size=10, color="#211D4D"))
     if tickvals is not None:
         ax.update(tickvals=list(tickvals), ticktext=list(ticktext), tickmode="array")
     ax.update(kw)
@@ -102,7 +102,7 @@ def camera_buttons(default_eye, y=1.0, x=0.0):
                ("Top", cam((0.0, -0.01, 2.5), up=(0, 1, 0))), ("Side", cam((2.4, 0.0, 0.12))),
                ("⟲ Reset", cam(default_eye))]
     return [dict(type="buttons", direction="right", showactive=True, x=x, xanchor="left", y=y, yanchor="bottom",
-                 pad=dict(r=2, t=2, b=2, l=2), bgcolor="white", bordercolor="#CBD5E1", borderwidth=1,
+                 pad=dict(r=2, t=2, b=2, l=2), bgcolor="#FFE8A5", bordercolor="#22205A", borderwidth=1,
                  font=dict(size=11, color=P["navy"]),
                  buttons=[dict(label=lbl, method="relayout", args=[args]) for lbl, args in presets])]
 
@@ -288,7 +288,7 @@ def donut_payment_type(df, by: str = "payment_type", value: str = "patients") ->
             rm = (r_in + r_out) / 2
             fig.add_scatter3d(x=[rm * np.cos(mid)], y=[rm * np.sin(mid)], z=[h + 0.06], mode="text",
                               text=[f"<b>{frac:.0%}</b>"], showlegend=False, hoverinfo="skip",
-                              textfont=dict(size=13, color="#0F172A"))
+                              textfont=dict(size=13, color="#211D4D"))
         a0 = a1
     centre = f"{s.sum():,}<br>patients" if value == "patients" else f"${s.sum()/1e9:,.2f}B<br>billed"
     fig.add_scatter3d(x=[0], y=[0], z=[0.1], mode="text", text=[f"<b>{centre}</b>"],

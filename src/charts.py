@@ -19,14 +19,14 @@ from .analysis import group_summary, ranked, top_facilities
 FONT = "Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
 pio.templates["mediscope"] = go.layout.Template(
     layout=go.Layout(
-        font=dict(family=FONT, size=13, color="#1E293B"),
+        font=dict(family=FONT, size=13, color="#211D4D"),
         title=dict(font=dict(size=17, color=cfg.PALETTE["navy"]), x=0.0, xanchor="left"),
         colorway=cfg.COLORWAY,
         paper_bgcolor="rgba(0,0,0,0)",
         plot_bgcolor="rgba(0,0,0,0)",
-        xaxis=dict(gridcolor="#E2E8F0", zerolinecolor="#CBD5E1", linecolor="#CBD5E1"),
-        yaxis=dict(gridcolor="#E2E8F0", zerolinecolor="#CBD5E1", linecolor="#CBD5E1"),
-        hoverlabel=dict(bgcolor="white", font=dict(family=FONT, color="#0F172A"),
+        xaxis=dict(gridcolor="#ECE6FB", zerolinecolor="#C9C1EA", linecolor="#C9C1EA"),
+        yaxis=dict(gridcolor="#ECE6FB", zerolinecolor="#C9C1EA", linecolor="#C9C1EA"),
+        hoverlabel=dict(bgcolor="white", font=dict(family=FONT, color="#211D4D"),
                         bordercolor=cfg.PALETTE["teal"]),
         legend=dict(bgcolor="rgba(0,0,0,0)", title=dict(font=dict(size=12))),
         margin=dict(l=10, r=10, t=56, b=10),
@@ -37,7 +37,7 @@ pio.templates.default = "plotly_white+mediscope"
 
 def _empty(msg="No data for the current filters") -> go.Figure:
     fig = go.Figure()
-    fig.add_annotation(text=msg, showarrow=False, font=dict(size=15, color="#64748B"))
+    fig.add_annotation(text=msg, showarrow=False, font=dict(size=15, color="#4A4775"))
     fig.update_layout(xaxis_visible=False, yaxis_visible=False, height=320)
     return fig
 
@@ -392,7 +392,7 @@ def animated_age_charges(df, metric: str = "avg_charges") -> go.Figure:
     fig.update_layout(height=480, legend=dict(orientation="h", y=1.02, x=1, xanchor="right", title=None))
     # theme the play controls and slow the transition slightly
     if fig.layout.updatemenus:
-        fig.layout.updatemenus[0].update(bgcolor="white", bordercolor=cfg.PALETTE["teal"],
+        fig.layout.updatemenus[0].update(bgcolor="#FFE8A5", bordercolor=cfg.PALETTE["navy"],
                                          font=dict(color=cfg.PALETTE["navy"]))
         fig.layout.updatemenus[0].buttons[0].args[1]["frame"]["duration"] = 1100
         fig.layout.updatemenus[0].buttons[0].args[1]["transition"]["duration"] = 500
